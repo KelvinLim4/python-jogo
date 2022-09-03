@@ -3,11 +3,12 @@ def jogar():
     print("** Bem vindo ao jogo da forca! **")
     print("***************************************")
 
-    palavra_secreta = "banana"
-    letras_acertadas = ["_", "_", "_", "_", "_", "_"]
+    palavra_secreta = "teste".upper()
+    letras_acertadas = ["_" for letra in palavra_secreta]
 
     enforcou = False
     acertou  = False
+    erros = 0
 
     print(letras_acertadas)
 
@@ -17,22 +18,30 @@ def jogar():
 
         chute = input("Qual a letra?")
         #.strip remove espaços
-        chute = chute.strip()
+        chute = chute.strip().upper()
 
+        if(chute in palavra_secreta):
+            index = 0
+            #para verificar cada letra dentro da palavra
+            for letra in palavra_secreta:
+                #.upper Converte os caracteres minúsculos de uma cadeia de caracteres em maiúsculo
+                if(chute.upper() == letra.upper()):
+                    #alimentando o vetor
+                    letras_acertadas[index] = letra
+                index += 1
+        else:
+            erros += 1
 
-        index = 0
-        #para verificar cada letra dentro da palavra
-        for letra in palavra_secreta:
-            #.upper Converte os caracteres minúsculos de uma cadeia de caracteres em maiúsculo
-            if(chute.upper() == letra.upper()):
-                #alimentando o vetor
-                letras_acertadas[index] = letra
-            index = index + 1
-
+        enforcou = erros == 6
+        acertou = "_" not in letras_acertadas
         print(letras_acertadas)
 
-        print("Jogando ...")
-    print("Fim do Jogo")
+    if(acertou):
+        print("Você ganhou ^^")
+    else:
+        print("Você perdeu :(")
+
+
 
 # Variavel interna para execução primaria
 if (__name__ == "__main__"):
